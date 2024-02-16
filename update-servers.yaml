@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - ./vars/defaults.yaml
+
+  tasks:
+    - name: stop the server
+      become_user: "{{ lgsm_user }}"
+      command: ~/tf2server stop
+      args:
+        chdir: "/home/{{ lgsm_user }}"
+
+    - name: Update the server
+      become_user: "{{ lgsm_user }}"
+      command: ~/tf2server update
+      args:
+        chdir: "/home/{{ lgsm_user }}"
+
+    - name: Restart the server
+      become_user: "{{ lgsm_user }}"
+      command: ~/tf2server restart
+      args:
+        chdir: "/home/{{ lgsm_user }}"
